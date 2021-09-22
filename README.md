@@ -1,3 +1,5 @@
+<img src = "resources/logo.png" width = "400" height = "400">
+
 # rougue-studios
 Proyecto Ingenieria en Software 
 ## Comandos Git

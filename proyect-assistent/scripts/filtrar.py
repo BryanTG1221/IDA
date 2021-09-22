@@ -16,7 +16,7 @@ class FileHandler(FileSystemEventHandler):
 # Cambiar la ruta dependiendo el PC
 
 path = 'C://Users//Bryan Turrubiates//Downloads'
-move_folder = "C://Users//Bryan Turrubiates//Desktop//CarpetaReceptora"   
+move_folder = "C://Users//Bryan Turrubiates//Desktop//Receptora"   
 
 event_handler = FileHandler()
 observer = observers.Observer()
