@@ -10,6 +10,16 @@ import os
 import wikipedia
 import pyautogui
 
+
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import db
+
+cred = credentials.Certificate('C:\\Users\\bryan\Documents\\IDA\\rougue-studios\\proyect-assistent\\ida\\assistent-personal-35dbb-firebase-adminsdk-1sx5y-058487df7f.json')
+firebase_admin.initialize_app(cred,{'databaseURL':'https://assistent-personal-35dbb-default-rtdb.firebaseio.com/'})
+
+
+
 Asistente = pyttsx3.init('sapi5')
 voces = Asistente.getProperty('voices') #voices es el nombre de la propiedad, no se puede modificar 
 Asistente.setProperty('voices',voces[0].id)
