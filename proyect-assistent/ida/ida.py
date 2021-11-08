@@ -9,6 +9,8 @@ import pywhatkit
 import os
 import wikipedia
 import pyautogui
+import envio
+import datos
 
 
 import firebase_admin
@@ -127,4 +129,13 @@ def Respuestas():
 
         elif 'temperatura' in consulta:
             Temperatura()
+
+        elif 'enviar correo' in consulta:
+            envio.obtener_info_emails()  
+        elif 'agregar correo' in consulta:
+            datos.obtener_datos()
+
+        
+
+        
 Respuestas()

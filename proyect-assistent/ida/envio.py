@@ -4,6 +4,7 @@ import speech_recognition as sr
 import pyttsx3
 from email.message import EmailMessage
 
+
 listener = sr.Recognizer()
 engine = pyttsx3.init()
 
@@ -38,7 +39,8 @@ def enviar_correo(receptor,asunto,mensaje):
 
 lista_emails = {
     'azael' : 'bryanturriti@gmail.com',
-    'fernando' : 'fernandogmz2001@gmail.com'
+    'fernando' : 'fernandogmz2001@gmail.com',
+    'alan':'alanif@hotmail.com'
     
 }
 
@@ -62,4 +64,3 @@ def obtener_info_emails():
 
 
 
-obtener_info_emails()
