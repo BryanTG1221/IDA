@@ -54,6 +54,7 @@ def hacercomando():
 
         return consulta.lower() 
 
+sss
 def Respuestas():
 
     def Traducir():
