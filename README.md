@@ -15,6 +15,6 @@ Subir nueva version **git push**
 
 **Actualizar** El repositorio a la nueva version **git pull**
 
-**Ver** los ultimos commits y push **git log --oneline**
+**Ver** los ultimos commits y push **git log --oneline** sss
 
 
