@@ -2,6 +2,7 @@ from os import name
 import requests
 from bs4 import BeautifulSoup
 from urllib.request import urlcleanup
+from googletrans import Translator
 import pyttsx3
 import speech_recognition as sr
 import webbrowser 
@@ -36,6 +37,8 @@ def habla(audio):
 def hacercomando():
     comando = sr.Recognizer()
     with sr.Microphone() as source:
+        print("Adaptándose al ruido de fondo.......")
+        comando.adjust_for_ambient_noise(source,duration=0.2)
         print("Escuchando.......")
         comando.pause_threshold = 1
         comando.energy_threshold = 400
@@ -53,6 +56,41 @@ def hacercomando():
 
 def Respuestas():
 
+    def Traducir():
+        habla("¿A que idioma quieres traducir?")
+        consulta = hacercomando()
+        if  'español' in consulta:
+            traslate = Translator()
+            habla("Dime lo que quieras traducir")
+            line = hacercomando()
+            result = traslate.translate(line,src= "auto", dest="es")
+            Text = result.text
+            habla(Text)
+            
+        elif  'inglés' in consulta:
+            traslate = Translator()
+            habla("Dime lo que quieras traducir")
+            line = hacercomando()
+            result = traslate.translate(line,src= "auto", dest="en")
+            Text = result.text
+            habla(Text)
+
+        elif 'chino' in consulta:
+            traslate = Translator()
+            habla("Dime lo que quieras traducir")
+            line = hacercomando()
+            result = traslate.translate(line,src= "auto", dest="zh-cn")
+            Text = result.text
+            habla(Text)
+
+        elif 'ruso' in consulta:
+            traslate = Translator()
+            habla("Dime lo que quieras traducir")
+            line = hacercomando()
+            result = traslate.translate(line,src= "auto", dest="russian")
+            Text = result.text
+            habla(Text)
+            
     def AbrirApps():
         habla("Ok, espera un segundo")
         if 'spotify' in consulta:
@@ -73,7 +111,7 @@ def Respuestas():
         consulta = hacercomando()
 
         if 'hola' in consulta:
-            habla("Hola , soy Rebe")
+            habla("Hola , soy Aída")
             habla("Su asistente personal")
             habla("¿Cómo le puedo ayudar?")
 
@@ -87,9 +125,6 @@ def Respuestas():
         elif 'necesitas un descanso' in consulta or 'tómate un descanso' in consulta:
             habla("Ok señor, pero puede hablarme cuando lo necesite")
             break
-
-        elif 'hueles feo' in consulta:
-            habla("Lo siento señor, ya me tomaré un baño")  
 
         elif 'adiós' in consulta:
             habla("Adiós")
@@ -132,8 +167,25 @@ def Respuestas():
 
         elif 'enviar correo' in consulta:
             envio.obtener_info_emails()  
+            
         elif 'agregar correo' in consulta:
             datos.obtener_datos()
+            
+        elif 'traduce' in consulta or 'traducir' in consulta or 'traductor' in consulta:
+            habla('Desea traducir algo corto o algo largo')
+            consulta=hacercomando()
+            if 'corto' in consulta:
+                Traducir()
+            elif 'largo' in consulta:
+                habla('Abriendo el traductor google')
+                webbrowser.open("https://translate.google.com.mx/?hl=es")
+                habla("Listo")
+
+        elif 'descargar video' in consulta or 'descarga este video' in consulta or 'descargues un video' in consulta:
+            habla('Abriendo página para descargar videos')
+            webbrowser.open("https://www.y2mate.com/es55")
+            habla("Listo")
+            habla("Ingrese el enlace del video que quiera descargar")
 
         
 
