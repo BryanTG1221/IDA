@@ -108,16 +108,12 @@ def Respuestas():
         temperatura = data.find("div", class_ = "BNeawe").text
         habla(f"La temperatura es de {temperatura} centígrados")
     while True:
-        consulta = hacercomando()
+        consulta = hacercomando()   
 
         if 'hola' in consulta:
             habla("Hola , soy Aída")
             habla("Su asistente personal")
             habla("¿Cómo le puedo ayudar?")
-
-        elif 'báñate' in consulta:
-            habla("ya voy señor")
-            break
 
         elif 'un chiste' in consulta:
             habla("Había una vez un pollito que se llamaba pegamento, se cayó y se pegó JA JA JA JA JA")
