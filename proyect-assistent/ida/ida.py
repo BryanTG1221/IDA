@@ -12,7 +12,7 @@ import wikipedia
 import pyautogui
 import envio
 import datos
-
+#
 
 import firebase_admin
 from firebase_admin import credentials
@@ -54,7 +54,6 @@ def hacercomando():
 
         return consulta.lower() 
 
-sss
 def Respuestas():
 
     def Traducir():
