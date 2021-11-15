@@ -1,6 +1,11 @@
 import os
 import speech_recognition as sr
 from playsound import playsound
+import win32console
+import win32gui
+
+ventana= win32console.GetConsoleWindow()
+win32gui.ShowWindow(ventana,0)
 
 
 def hacercomando():
