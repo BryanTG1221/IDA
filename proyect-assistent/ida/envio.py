@@ -3,6 +3,7 @@ import smtplib
 import speech_recognition as sr
 import pyttsx3
 from email.message import EmailMessage
+import datos
 
 
 listener = sr.Recognizer()
@@ -36,25 +37,16 @@ def enviar_correo(receptor,asunto,mensaje):
         server.send_message(email)
         
 
-
-lista_emails = {
-    'azael' : 'bryanturriti@gmail.com',
-    'fernando' : 'fernandogmz2001@gmail.com',
-    'alan':'alanif@hotmail.com'
-    
-}
-
-
 def obtener_info_emails():
     hablar('¿A quien le quieres enviar el correo?')
     nombre = obtener_info()
-    receptor = lista_emails[nombre]
-    print(receptor)
+    receptoremail = datos.obtener_correo(nombre)
+    print(receptoremail)
     hablar('¿Cual es el asunto de su email?')
     asunto = obtener_info()
     hablar('¿Que quiere decir en su mail?')
     mensaje = obtener_info()
-    enviar_correo(receptor,asunto,mensaje)
+    enviar_correo(receptoremail,asunto,mensaje)
     hablar('Tu correo a sido enviado')
     hablar('¿Quieres enviar otro correo?')
     enviar_otro=obtener_info()

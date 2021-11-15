@@ -7,6 +7,9 @@ import re
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
+import pyrebase
+from playsound import playsound
+#pip install pyrebase4
 
 
 
@@ -21,6 +24,7 @@ def hablar(texto):
 def obtener_info():
     try:
         with sr.Microphone() as source:
+            playsound
             print('Escuchando...')
             listener.pause_threshold = 1
             listener.energy_threshold = 400
@@ -50,10 +54,19 @@ def obtener_datos():
 
 def subir_info(nombre,correo):
     ref = db.reference('/Correos')
-    ref.push({'email':correo,'nombre':nombre})
+    datos = {'nombre':nombre,'correo':correo}
+    ref.child(nombre).set(datos)
     hablar('el correo se agrego con exito')
-    
 
+def obtener_correo(nombre):
+    ref =db.reference('/Correos/'+nombre+'/correo')
+    resultado = ref.get()
+    #resultado= ref.order_by_child("nombre").equal_to(nombre).get()
+    print(resultado)
+    return(resultado)
+
+
+    
 
 
 

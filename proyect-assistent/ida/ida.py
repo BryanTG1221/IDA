@@ -1,4 +1,4 @@
-from os import name
+from os import close, name
 import requests
 from bs4 import BeautifulSoup
 from urllib.request import urlcleanup
@@ -12,6 +12,7 @@ import wikipedia
 import pyautogui
 import envio
 import datos
+from playsound import playsound
 #
 
 import firebase_admin
@@ -34,6 +35,8 @@ def habla(audio):
     print(f": {audio}")
     Asistente.runAndWait()
 
+
+
 def hacercomando():
     comando = sr.Recognizer()
     with sr.Microphone() as source:
@@ -42,6 +45,7 @@ def hacercomando():
         print("Escuchando.......")
         comando.pause_threshold = 1
         comando.energy_threshold = 400
+        playsound('C:\\Users\\bryan\\Documents\\IDA\\rougue-studios\\resources\\SonidoIDA.mp3')
         audio = comando.listen(source)
 
         try:
@@ -165,7 +169,7 @@ def Respuestas():
             envio.obtener_info_emails()  
             
         elif 'agregar correo' in consulta:
-            datos.obtener_datos()
+            datos.obtener_correo()
             
         elif 'traduce' in consulta or 'traducir' in consulta or 'traductor' in consulta:
             habla('Desea traducir algo corto o algo largo')
