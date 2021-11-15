@@ -14,22 +14,19 @@ import wikipedia
 import pyautogui
 import envio
 import datos
-from playsound import playsound
 #
 
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
 
-cred = credentials.Certificate('D:\\Documentos\\Github\\Proyecto SOFTWARE\\rougue-studios\\proyect-assistent\\ida\\assistent-personal-35dbb-firebase-adminsdk-1sx5y-058487df7f.json')
+cred = credentials.Certificate('C:\\Program Files (x86)\\IDA\\rougue-studios\\proyect-assistent\\ida\\assistent-personal-35dbb-firebase-adminsdk-1sx5y-058487df7f.json')
 firebase_admin.initialize_app(cred,{'databaseURL':'https://assistent-personal-35dbb-default-rtdb.firebaseio.com/'})
-
-
 
 Asistente = pyttsx3.init('sapi5')
 voces = Asistente.getProperty('voices') #voices es el nombre de la propiedad, no se puede modificar 
 Asistente.setProperty('voices',voces[0].id)
-Asistente.setProperty('rate',180)
+Asistente.setProperty('rate',150)
 
 def habla(audio):
     print(" ")
@@ -47,7 +44,6 @@ def hacercomando():
         print("Escuchando.......")
         comando.pause_threshold = 1
         comando.energy_threshold = 400
-        playsound('D:\\Documentos\\Github\\Proyecto SOFTWARE\\rougue-studios\\resources\\SonidoIDA.mp3')
         audio = comando.listen(source)
 
         try:
@@ -120,14 +116,6 @@ def Respuestas():
         habla("Ok, espera un segundo")
         if 'spotify' in consulta:
             os.startfile("C:\\Users\\Bryant\\AppData\\Roaming\\Spotify\\Spotify.exe")
-        habla("Aplicación abierta con éxito")
-        ref=db.reference('/calls/Apps/apps')
-        resultado=ref.get()
-        resultado = resultado + 1
-        ref = db.reference('/calls/Apps')
-        ref.update({'apps':resultado})
-        if 'teams' in consulta:
-            os.startfile("C:\\Users\\Bryant\\AppData\\Local\\Microsoft\\Teams\\Update.exe --processStart 'Teams.exe'")
         habla("Aplicación abierta con éxito")
         ref=db.reference('/calls/Apps/apps')
         resultado=ref.get()
@@ -228,11 +216,11 @@ def Respuestas():
             Temperatura()
             break
 
-        elif 'enviar correo' in consulta or 'envía un correo' in consulta or 'manda un correo' in consulta:
+        elif 'enviar correo' in consulta or 'envía un correo' in consulta or 'enviar un correo' in consulta or 'manda un correo' in consulta:
             envio.obtener_info_emails()  
             break
             
-        elif 'agregar correo' in consulta or 'agrega un correo' in consulta:
+        elif 'agregar correo' in consulta or 'agrega un correo' in consulta or 'agregar un correo' in consulta  or 'agregar contacto' in consulta or 'agrega un contacto' in consulta or 'agregar un contacto' in consulta:
             datos.obtener_datos()
             break
             
@@ -253,6 +241,8 @@ def Respuestas():
             habla("Listo")
             habla("Ingrese el enlace del video que quiera descargar")
             break
+
+        else: break
 
         
 Respuestas()

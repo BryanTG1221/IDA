@@ -8,7 +8,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
 import pyrebase
-from playsound import playsound
+
 #pip install pyrebase4
 
 
@@ -31,7 +31,6 @@ def hacercomando():
         print("Escuchando.......")
         comando.pause_threshold = 1
         comando.energy_threshold = 400
-        playsound('D:\\Documentos\\Github\\Proyecto SOFTWARE\\rougue-studios\\resources\\SonidoIDA.mp3')
         audio = comando.listen(source)
 
         try:
@@ -51,15 +50,29 @@ def obtener_datos():
     habla('nombre del contacto')
     nombre = hacercomando()
     habla('cual es la terminacion del correo?')
+    habla('Gmail,Hotmail,Outlook')
     terminacioncorreo= hacercomando()
     if 'gmail' in terminacioncorreo or 'hotmail' in terminacioncorreo or 'outlook' in terminacioncorreo:
         habla('Okay')
-    habla('diga el correo antes del arroba')
-    correo=hacercomando()
-    correo = correo.replace(' ','')
-    correofull = correo + '@' + terminacioncorreo + '.com'
-    print(correofull)
-    subir_info(nombre,correofull)
+        habla('diga el correo antes del arroba')
+        correo=hacercomando()
+        correo = correo.replace(' ','')
+        correofull = correo + '@' + terminacioncorreo + '.com'
+        print(correofull)
+        subir_info(nombre,correofull)
+    habla('No es una direccion valida')
+    habla('Opciones validas: Gmail , Outlook, Hotmail')
+    terminacioncorreo=hacercomando()
+    if 'gmail' in terminacioncorreo or 'hotmail' in terminacioncorreo or 'outlook' in terminacioncorreo:
+        habla('Okay')
+        habla('diga el correo antes del arroba')
+        correo=hacercomando()
+        correo = correo.replace(' ','')
+        correofull = correo + '@' + terminacioncorreo + '.com'
+        print(correofull)
+        subir_info(nombre,correofull)
+    habla('No es un correo valido, vuelva a intentarlo')
+    
 
 
 def subir_info(nombre,correo):

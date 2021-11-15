@@ -5,7 +5,7 @@ import speech_recognition as sr
 import pyttsx3
 from email.message import EmailMessage
 import datos
-from playsound import playsound
+
 
 
 listener = sr.Recognizer()
@@ -26,18 +26,21 @@ def hacercomando():
         print("Escuchando.......")
         comando.pause_threshold = 1
         comando.energy_threshold = 400
-        playsound('D:\\Documentos\\Github\\Proyecto SOFTWARE\\rougue-studios\\resources\\SonidoIDA.mp3')
         audio = comando.listen(source)
 
         try:
             print("Entendiendo.......")
             consulta = comando.recognize_google(audio,language='es-mx')
             print(f"Dijiste: {consulta}")
+            
 
         except Exception as Error:
             return "none"
 
-        return consulta.lower() 
+        return consulta.lower()
+        
+
+        
 def enviar_correo(receptor,asunto,mensaje):
         server = smtplib.SMTP('smtp.gmail.com',587)
         server.starttls()
@@ -58,6 +61,11 @@ def enviar_correo(receptor,asunto,mensaje):
 def obtener_info_emails():
     habla('¿A quien le quieres enviar el correo?')
     nombre = hacercomando()
+    if 'a' in nombre:
+        habla('Diga solo el nombre a quien quiere enviar el correo porfavor')
+        nombre=hacercomando()
+        receptoremail = datos.obtener_correo(nombre)
+        
     receptoremail = datos.obtener_correo(nombre)
     print(receptoremail)
     habla('¿Cual es el asunto de su email?')

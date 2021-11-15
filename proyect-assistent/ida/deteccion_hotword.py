@@ -3,9 +3,34 @@ import speech_recognition as sr
 from playsound import playsound
 import win32console
 import win32gui
+import sys
+#pip install PyQt5 
+from PyQt5.QtWidgets import QApplication, QSystemTrayIcon,QMenu
+from PyQt5.QtGui import QIcon
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import db
+
+
+cred = credentials.Certificate('C:\\Program Files (x86)\\IDA\\rougue-studios\\proyect-assistent\\ida\\assistent-personal-35dbb-firebase-adminsdk-1sx5y-058487df7f.json')
+firebase_admin.initialize_app(cred,{'databaseURL':'https://assistent-personal-35dbb-default-rtdb.firebaseio.com/'})
 
 ventana= win32console.GetConsoleWindow()
 win32gui.ShowWindow(ventana,0)
+
+def icono():
+
+    app=QApplication(sys.argv)
+    TrayIcon= QSystemTrayIcon(QIcon('C:\\Program Files (x86)\\IDA\\rougue-studios\\resources\\iconoTask1000.png'),parent=app)
+    TrayIcon.setToolTip('IDA')
+    TrayIcon.show()
+
+    menu=QMenu()
+    exitAction=menu.addAction('Salir')
+    exitAction.triggered.connect(app.quit)
+    TrayIcon.setContextMenu(menu)
+
+    sys.exit(app.exec_())
 
 
 def hacercomando():
@@ -22,17 +47,34 @@ def hacercomando():
             print("Entendiendo.......")
             consulta = comando.recognize_google(audio,language='es-mx')
             print(f"Dijiste: {consulta}")
+            
 
         except Exception as Error:
             return "none"
 
         return consulta.lower() 
+
     
+
 while True:
     
     consulta = hacercomando()
-    
     if 'oye' in consulta:
-        os.startfile('D:\\Documentos\\Github\\Proyecto SOFTWARE\\rougue-studios\\proyect-assistent\\ida\\ida.py')
+        os.startfile('C:\\Program Files (x86)\\IDA\\rougue-studios\\proyect-assistent\\ida\\ida.py')
+        ref=db.reference('/calls/IDA/oye')
+        resultado=ref.get()
+        resultado=resultado+1
+        ref=db.reference('/calls/IDA')
+        ref.update({'oye':resultado})
+        
+
     else:
         print("Falsa alarma.......")
+        
+
+
+
+
+
+
+
