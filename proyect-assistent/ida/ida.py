@@ -1,4 +1,6 @@
 from os import close, name
+import re
+from bs4.element import ResultSet
 import requests
 from bs4 import BeautifulSoup
 from urllib.request import urlcleanup
@@ -70,6 +72,11 @@ def Respuestas():
             result = traslate.translate(line,src= "auto", dest="es")
             Text = result.text
             habla(Text)
+            ref=db.reference('/calls/Traducciones/español')
+            resultado=ref.get()
+            resultado=resultado + 1
+            ref = db.reference('/calls/Traducciones')
+            ref.update({'español':resultado})
             
         elif  'inglés' in consulta:
             traslate = Translator()
@@ -78,6 +85,11 @@ def Respuestas():
             result = traslate.translate(line,src= "auto", dest="en")
             Text = result.text
             habla(Text)
+            ref=db.reference('/calls/Traducciones/ingles')
+            resultado=ref.get()
+            resultado=resultado + 1
+            ref = db.reference('/calls/Traducciones')
+            ref.update({'ingles':resultado})
 
         elif 'chino' in consulta:
             traslate = Translator()
@@ -86,6 +98,11 @@ def Respuestas():
             result = traslate.translate(line,src= "auto", dest="zh-cn")
             Text = result.text
             habla(Text)
+            ref=db.reference('/calls/Traducciones/chino')
+            resultado=ref.get()
+            resultado=resultado + 1
+            ref = db.reference('/calls/Traducciones')
+            ref.update({'chino':resultado})
 
         elif 'ruso' in consulta:
             traslate = Translator()
@@ -94,15 +111,30 @@ def Respuestas():
             result = traslate.translate(line,src= "auto", dest="russian")
             Text = result.text
             habla(Text)
+            ref=db.reference('/calls/Traducciones/ruso')
+            resultado=ref.get()
+            resultado=resultado + 1
+            ref = db.reference('/calls/Traducciones')
+            ref.update({'ruso':resultado})
             
     def AbrirApps():
         habla("Ok, espera un segundo")
         if 'spotify' in consulta:
             os.startfile("C:\\Users\\Bryant\\AppData\\Roaming\\Spotify\\Spotify.exe")
         habla("Aplicación abierta con éxito")
+        ref=db.reference('/calls/Apps/apps')
+        resultado=ref.get()
+        resultado = resultado + 1
+        ref = db.reference('/calls/Apps')
+        ref.update({'apps':resultado})
         if 'teams' in consulta:
             os.startfile("C:\\Users\\Bryant\\AppData\\Local\\Microsoft\\Teams\\Update.exe --processStart 'Teams.exe'")
         habla("Aplicación abierta con éxito")
+        ref=db.reference('/calls/Apps/apps')
+        resultado=ref.get()
+        resultado = resultado + 1
+        ref = db.reference('/calls/Apps')
+        ref.update({'apps':resultado})
         
     def Temperatura():
         buscar  = "Temperatura en Nuevo Laredo"
@@ -111,6 +143,11 @@ def Respuestas():
         data = BeautifulSoup(r.text,"html.parser")
         temperatura = data.find("div", class_ = "BNeawe").text
         habla(f"La temperatura es de {temperatura} centígrados")
+        ref=db.reference('/calls/Temperatura/nuevold')
+        resultado=ref.get()
+        resultado = resultado + 1
+        ref=db.reference('/calls/Temperatura')
+        ref.update({'nuevold':resultado})
     while True:
         consulta = hacercomando()   
 
@@ -140,17 +177,32 @@ def Respuestas():
             web = 'https://www.youtube.com/results?search_query=' + consulta
             webbrowser.open(web)
             habla("Listo")
+            ref=db.reference('/calls/Youtube/busquedas')
+            resultado= ref.get()
+            resultado=resultado+1
+            ref=db.reference('/calls/Youtube')
+            ref.update({'busquedas':resultado})
             
         elif 'en google' in consulta:
             habla("Esto es lo que encontré en google!")
             consulta = consulta.replace("busca en google","")
             pywhatkit.search(consulta)
             habla("Listo")
+            ref=db.reference('/calls/Google/busquedas')
+            resultado= ref.get()
+            resultado=resultado+1
+            ref=db.reference('/calls/Google')
+            ref.update({'busquedas':resultado})
 
         elif 'facebook' in consulta:
             habla('Abriendo facebook')
             webbrowser.open("https://www.facebook.com")
             habla("Listo")
+            ref=db.reference('/calls/Facebook/busquedas')
+            resultado= ref.get()
+            resultado=resultado+1
+            ref=db.reference('/calls/Facebook')
+            ref.update({'busquedas':resultado})
 
         elif 'canción' in consulta or 'reproduce' in consulta:
             
@@ -158,6 +210,11 @@ def Respuestas():
             cancion = consulta.replace('Reproduciendo','')
             pywhatkit.playonyt(cancion)
             habla("Listo")
+            ref=db.reference('/calls/Youtube/busquedas')
+            resultado= ref.get()
+            resultado=resultado+1
+            ref=db.reference('/calls/Youtube')
+            ref.update({'busquedas':resultado})
 
         elif 'abre spotify' in consulta:
             AbrirApps()
@@ -169,7 +226,7 @@ def Respuestas():
             envio.obtener_info_emails()  
             
         elif 'agregar correo' in consulta:
-            datos.obtener_correo()
+            datos.obtener_datos()
             
         elif 'traduce' in consulta or 'traducir' in consulta or 'traductor' in consulta:
             habla('Desea traducir algo corto o algo largo')

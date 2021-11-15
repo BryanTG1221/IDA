@@ -1,5 +1,6 @@
 from math import inf
 import smtplib
+from firebase_admin import db
 import speech_recognition as sr
 import pyttsx3
 from email.message import EmailMessage
@@ -35,6 +36,11 @@ def enviar_correo(receptor,asunto,mensaje):
         email['Subject'] = asunto
         email.set_content(mensaje)
         server.send_message(email)
+        ref=db.reference('/calls/Emails/Enviados')
+        resultado=ref.get()
+        resultado = resultado +1
+        ref=db.reference('/calls/Emails')
+        ref.update({'Enviados':resultado})
         
 
 def obtener_info_emails():

@@ -57,6 +57,12 @@ def subir_info(nombre,correo):
     datos = {'nombre':nombre,'correo':correo}
     ref.child(nombre).set(datos)
     hablar('el correo se agrego con exito')
+    ref=db.reference('/calls/Emails/Agregados')
+    resultado = ref.get()
+    resultado=resultado+1
+    ref=db.reference('/calls/Emails')
+    ref.update({'Agregados':resultado})
+    print(resultado)
 
 def obtener_correo(nombre):
     ref =db.reference('/Correos/'+nombre+'/correo')
@@ -64,6 +70,11 @@ def obtener_correo(nombre):
     #resultado= ref.order_by_child("nombre").equal_to(nombre).get()
     print(resultado)
     return(resultado)
+
+def altasfirebase():
+    ref = db.reference('/calls')
+    datos={'Agregados':0,'Enviados':0}
+    ref.child('Emails').set(datos)
 
 
     
