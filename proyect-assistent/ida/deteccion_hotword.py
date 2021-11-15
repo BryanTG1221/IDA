@@ -1,5 +1,6 @@
 import os
 import speech_recognition as sr
+from playsound import playsound
 
 
 def hacercomando():
@@ -27,6 +28,6 @@ while True:
     consulta = hacercomando()
     
     if 'oye' in consulta:
-        os.startfile('D:\\Documentos\\Proyecto\\rougue-studios\\proyect-assistent\\ida\\ida.py')
+        os.startfile('D:\\Documentos\\Github\\Proyecto SOFTWARE\\rougue-studios\\proyect-assistent\\ida\\ida.py')
     else:
         print("Falsa alarma.......")

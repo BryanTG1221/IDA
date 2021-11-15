@@ -21,7 +21,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
 
-cred = credentials.Certificate('C:\\Users\\bryan\Documents\\IDA\\rougue-studios\\proyect-assistent\\ida\\assistent-personal-35dbb-firebase-adminsdk-1sx5y-058487df7f.json')
+cred = credentials.Certificate('D:\\Documentos\\Github\\Proyecto SOFTWARE\\rougue-studios\\proyect-assistent\\ida\\assistent-personal-35dbb-firebase-adminsdk-1sx5y-058487df7f.json')
 firebase_admin.initialize_app(cred,{'databaseURL':'https://assistent-personal-35dbb-default-rtdb.firebaseio.com/'})
 
 
@@ -47,7 +47,7 @@ def hacercomando():
         print("Escuchando.......")
         comando.pause_threshold = 1
         comando.energy_threshold = 400
-        playsound('C:\\Users\\bryan\\Documents\\IDA\\rougue-studios\\resources\\SonidoIDA.mp3')
+        playsound('D:\\Documentos\\Github\\Proyecto SOFTWARE\\rougue-studios\\resources\\SonidoIDA.mp3')
         audio = comando.listen(source)
 
         try:
@@ -116,7 +116,6 @@ def Respuestas():
             resultado=resultado + 1
             ref = db.reference('/calls/Traducciones')
             ref.update({'ruso':resultado})
-            
     def AbrirApps():
         habla("Ok, espera un segundo")
         if 'spotify' in consulta:
@@ -158,6 +157,7 @@ def Respuestas():
 
         elif 'un chiste' in consulta:
             habla("Había una vez un pollito que se llamaba pegamento, se cayó y se pegó JA JA JA JA JA")
+            break
 
         elif 'necesitas un descanso' in consulta or 'tómate un descanso' in consulta:
             habla("Ok señor, pero puede hablarme cuando lo necesite")
@@ -182,6 +182,7 @@ def Respuestas():
             resultado=resultado+1
             ref=db.reference('/calls/Youtube')
             ref.update({'busquedas':resultado})
+            break
             
         elif 'en google' in consulta:
             habla("Esto es lo que encontré en google!")
@@ -193,6 +194,7 @@ def Respuestas():
             resultado=resultado+1
             ref=db.reference('/calls/Google')
             ref.update({'busquedas':resultado})
+            break
 
         elif 'facebook' in consulta:
             habla('Abriendo facebook')
@@ -203,6 +205,7 @@ def Respuestas():
             resultado=resultado+1
             ref=db.reference('/calls/Facebook')
             ref.update({'busquedas':resultado})
+            break
 
         elif 'canción' in consulta or 'reproduce' in consulta:
             
@@ -215,18 +218,23 @@ def Respuestas():
             resultado=resultado+1
             ref=db.reference('/calls/Youtube')
             ref.update({'busquedas':resultado})
+            break
 
         elif 'abre spotify' in consulta:
             AbrirApps()
+            break
 
         elif 'temperatura' in consulta:
             Temperatura()
+            break
 
-        elif 'enviar correo' in consulta:
+        elif 'enviar correo' in consulta or 'envía un correo' in consulta or 'manda un correo' in consulta:
             envio.obtener_info_emails()  
+            break
             
-        elif 'agregar correo' in consulta:
+        elif 'agregar correo' in consulta or 'agrega un correo' in consulta:
             datos.obtener_datos()
+            break
             
         elif 'traduce' in consulta or 'traducir' in consulta or 'traductor' in consulta:
             habla('Desea traducir algo corto o algo largo')
@@ -237,14 +245,14 @@ def Respuestas():
                 habla('Abriendo el traductor google')
                 webbrowser.open("https://translate.google.com.mx/?hl=es")
                 habla("Listo")
+                break
 
         elif 'descargar video' in consulta or 'descarga este video' in consulta or 'descargues un video' in consulta:
             habla('Abriendo página para descargar videos')
             webbrowser.open("https://www.y2mate.com/es55")
             habla("Listo")
             habla("Ingrese el enlace del video que quiera descargar")
-
-        
+            break
 
         
 Respuestas()

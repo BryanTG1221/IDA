@@ -15,37 +15,47 @@ from playsound import playsound
 
 
 listener = sr.Recognizer()
-engine = pyttsx3.init()
+Asistente = pyttsx3.init()
 
-def hablar(texto):
-    engine.say(texto)
-    engine.runAndWait()
+def habla(audio):
+    print(" ")
+    Asistente.say(audio)
+    print(f": {audio}")
+    Asistente.runAndWait()
 
-def obtener_info():
-    try:
-        with sr.Microphone() as source:
-            playsound
-            print('Escuchando...')
-            listener.pause_threshold = 1
-            listener.energy_threshold = 400
-            voice = listener.listen(source)
-            info= listener.recognize_google(voice,language='es-mx')
-            print(info)
-            return info.lower()
-    except:
-        pass
+def hacercomando():
+    comando = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Adaptándose al ruido de fondo.......")
+        comando.adjust_for_ambient_noise(source,duration=0.2)
+        print("Escuchando.......")
+        comando.pause_threshold = 1
+        comando.energy_threshold = 400
+        playsound('D:\\Documentos\\Github\\Proyecto SOFTWARE\\rougue-studios\\resources\\SonidoIDA.mp3')
+        audio = comando.listen(source)
+
+        try:
+            print("Entendiendo.......")
+            consulta = comando.recognize_google(audio,language='es-mx')
+            print(f"Dijiste: {consulta}")
+
+        except Exception as Error:
+            return "none"
+
+        return consulta.lower()
+    
 def enviar_datos():
         print('Hola')
 
 def obtener_datos():
-    hablar('nombre del contacto')
-    nombre = obtener_info()
-    hablar('cual es la terminacion del correo?')
-    terminacioncorreo= obtener_info()
+    habla('nombre del contacto')
+    nombre = hacercomando()
+    habla('cual es la terminacion del correo?')
+    terminacioncorreo= hacercomando()
     if 'gmail' in terminacioncorreo or 'hotmail' in terminacioncorreo or 'outlook' in terminacioncorreo:
-        hablar('Okay')
-    hablar('diga el correo antes del arroba')
-    correo=obtener_info()
+        habla('Okay')
+    habla('diga el correo antes del arroba')
+    correo=hacercomando()
     correo = correo.replace(' ','')
     correofull = correo + '@' + terminacioncorreo + '.com'
     print(correofull)
@@ -56,13 +66,14 @@ def subir_info(nombre,correo):
     ref = db.reference('/Correos')
     datos = {'nombre':nombre,'correo':correo}
     ref.child(nombre).set(datos)
-    hablar('el correo se agrego con exito')
+    habla('el correo se agrego con exito')
     ref=db.reference('/calls/Emails/Agregados')
     resultado = ref.get()
     resultado=resultado+1
     ref=db.reference('/calls/Emails')
     ref.update({'Agregados':resultado})
     print(resultado)
+    
 
 def obtener_correo(nombre):
     ref =db.reference('/Correos/'+nombre+'/correo')

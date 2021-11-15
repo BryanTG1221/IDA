@@ -5,27 +5,39 @@ import speech_recognition as sr
 import pyttsx3
 from email.message import EmailMessage
 import datos
+from playsound import playsound
 
 
 listener = sr.Recognizer()
-engine = pyttsx3.init()
+Asistente = pyttsx3.init()
 
-def hablar(texto):
-    engine.say(texto)
-    engine.runAndWait()
+def habla(audio):
+    print(" ")
+    Asistente.say(audio)
+    print(f": {audio}")
+    Asistente.runAndWait()
 
-def obtener_info():
-    try:
-        with sr.Microphone() as source:
-            print('Escuchando...')
-            listener.pause_threshold = 1
-            listener.energy_threshold = 400
-            voice = listener.listen(source)
-            info= listener.recognize_google(voice,language='es-mx')
-            print(info)
-            return info.lower()
-    except:
-        pass
+
+def hacercomando():
+    comando = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Adaptándose al ruido de fondo.......")
+        comando.adjust_for_ambient_noise(source,duration=0.2)
+        print("Escuchando.......")
+        comando.pause_threshold = 1
+        comando.energy_threshold = 400
+        playsound('D:\\Documentos\\Github\\Proyecto SOFTWARE\\rougue-studios\\resources\\SonidoIDA.mp3')
+        audio = comando.listen(source)
+
+        try:
+            print("Entendiendo.......")
+            consulta = comando.recognize_google(audio,language='es-mx')
+            print(f"Dijiste: {consulta}")
+
+        except Exception as Error:
+            return "none"
+
+        return consulta.lower() 
 def enviar_correo(receptor,asunto,mensaje):
         server = smtplib.SMTP('smtp.gmail.com',587)
         server.starttls()
@@ -44,18 +56,18 @@ def enviar_correo(receptor,asunto,mensaje):
         
 
 def obtener_info_emails():
-    hablar('¿A quien le quieres enviar el correo?')
-    nombre = obtener_info()
+    habla('¿A quien le quieres enviar el correo?')
+    nombre = hacercomando()
     receptoremail = datos.obtener_correo(nombre)
     print(receptoremail)
-    hablar('¿Cual es el asunto de su email?')
-    asunto = obtener_info()
-    hablar('¿Que quiere decir en su mail?')
-    mensaje = obtener_info()
+    habla('¿Cual es el asunto de su email?')
+    asunto = hacercomando()
+    habla('¿Que quiere decir en su mail?')
+    mensaje = hacercomando()
     enviar_correo(receptoremail,asunto,mensaje)
-    hablar('Tu correo a sido enviado')
-    hablar('¿Quieres enviar otro correo?')
-    enviar_otro=obtener_info()
+    habla('Tu correo a sido enviado')
+    habla('¿Quieres enviar otro correo?')
+    enviar_otro=hacercomando()
     if 'sí' in enviar_otro:
         obtener_info_emails()
 
