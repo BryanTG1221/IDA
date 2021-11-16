@@ -14,6 +14,7 @@ import wikipedia
 import pyautogui
 import envio
 import datos
+
 #
 
 import firebase_admin
@@ -41,6 +42,7 @@ def hacercomando():
     with sr.Microphone() as source:
         print("Adaptándose al ruido de fondo.......")
         comando.adjust_for_ambient_noise(source,duration=0.2)
+        
         print("Escuchando.......")
         comando.pause_threshold = 1
         comando.energy_threshold = 400

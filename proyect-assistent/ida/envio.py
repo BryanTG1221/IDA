@@ -8,6 +8,7 @@ import datos
 
 
 
+
 listener = sr.Recognizer()
 Asistente = pyttsx3.init()
 
@@ -23,6 +24,7 @@ def hacercomando():
     with sr.Microphone() as source:
         print("Adaptándose al ruido de fondo.......")
         comando.adjust_for_ambient_noise(source,duration=0.2)
+        
         print("Escuchando.......")
         comando.pause_threshold = 1
         comando.energy_threshold = 400

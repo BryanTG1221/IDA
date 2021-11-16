@@ -12,27 +12,6 @@ from firebase_admin import credentials
 from firebase_admin import db
 
 
-cred = credentials.Certificate('C:\\Program Files (x86)\\IDA\\rougue-studios\\proyect-assistent\\ida\\assistent-personal-35dbb-firebase-adminsdk-1sx5y-058487df7f.json')
-firebase_admin.initialize_app(cred,{'databaseURL':'https://assistent-personal-35dbb-default-rtdb.firebaseio.com/'})
-
-ventana= win32console.GetConsoleWindow()
-win32gui.ShowWindow(ventana,0)
-
-def icono():
-
-    app=QApplication(sys.argv)
-    TrayIcon= QSystemTrayIcon(QIcon('C:\\Program Files (x86)\\IDA\\rougue-studios\\resources\\iconoTask1000.png'),parent=app)
-    TrayIcon.setToolTip('IDA')
-    TrayIcon.show()
-
-    menu=QMenu()
-    exitAction=menu.addAction('Salir')
-    exitAction.triggered.connect(app.quit)
-    TrayIcon.setContextMenu(menu)
-
-    sys.exit(app.exec_())
-
-
 def hacercomando():
     comando = sr.Recognizer()
     with sr.Microphone() as source:
@@ -54,7 +33,12 @@ def hacercomando():
 
         return consulta.lower() 
 
-    
+cred = credentials.Certificate('C:\\Program Files (x86)\\IDA\\rougue-studios\\proyect-assistent\\ida\\assistent-personal-35dbb-firebase-adminsdk-1sx5y-058487df7f.json')
+firebase_admin.initialize_app(cred,{'databaseURL':'https://assistent-personal-35dbb-default-rtdb.firebaseio.com/'})
+
+ventana= win32console.GetConsoleWindow()
+win32gui.ShowWindow(ventana,0)
+
 
 while True:
     
@@ -67,9 +51,13 @@ while True:
         ref=db.reference('/calls/IDA')
         ref.update({'oye':resultado})
         
-
     else:
         print("Falsa alarma.......")
+
+
+    
+
+
         
 
 
