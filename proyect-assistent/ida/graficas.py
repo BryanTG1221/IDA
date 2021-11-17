@@ -58,7 +58,7 @@ names = ["Oye IDA"]
 scores = [OyeIDA]
 positions = [0]
 
-plt.bar(positions,scores,width=0.5, color="g")
+plt.bar(positions,scores,width=0.5, color="r")
 
 plt.xticks(positions,names)
 
