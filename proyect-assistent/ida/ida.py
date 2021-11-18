@@ -1,10 +1,14 @@
 from os import close, name
-import re
+from subprocess import TimeoutExpired
 from bs4.element import ResultSet
-import requests
 from bs4 import BeautifulSoup
 from urllib.request import urlcleanup
 from googletrans import Translator
+from firebase_admin import credentials
+from firebase_admin import db
+from playsound import playsound
+import re
+import requests
 import pyttsx3
 import speech_recognition as sr
 import webbrowser 
@@ -14,12 +18,8 @@ import wikipedia
 import pyautogui
 import envio
 import datos
-
-#
-
 import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import db
+import time
 
 cred = credentials.Certificate('D:\\Documentos\\Github\\Proyecto SOFTWARE\\rougue-studios\\proyect-assistent\\ida\\assistent-personal-35dbb-firebase-adminsdk-1sx5y-058487df7f.json')
 firebase_admin.initialize_app(cred,{'databaseURL':'https://assistent-personal-35dbb-default-rtdb.firebaseio.com/'})
@@ -36,7 +36,6 @@ def habla(audio):
     Asistente.runAndWait()
 
 
-
 def hacercomando():
     comando = sr.Recognizer()
     with sr.Microphone() as source:
@@ -46,16 +45,25 @@ def hacercomando():
         print("Escuchando.......")
         comando.pause_threshold = 1
         comando.energy_threshold = 400
-        audio = comando.listen(source)
-
+        playsound('D:\\Documentos\\Github\\Proyecto SOFTWARE\\rougue-studios\\resources\\SonidoIDA.mp3')
+        audio = comando.listen(source,timeout=5)
         try:
+            
             print("Entendiendo.......")
             consulta = comando.recognize_google(audio,language='es-mx')
             print(f"Dijiste: {consulta}")
-
+        
         except Exception as Error:
             return "none"
+        
+        except TimeoutExpired as msg:
+            print(msg)
+                    
+        except  sr.WaitTimeoutError as msg:
+            print("El tiempo de espera ha terminado")
+            quit()
 
+        # Temporizador()
         return consulta.lower() 
 
 def Respuestas():
@@ -145,6 +153,66 @@ def Respuestas():
             habla("Su asistente personal")
             habla("¿Cómo le puedo ayudar?")
 
+        elif 'cómo estás' in consulta or 'como estas' in consulta:
+            habla("Yo estoy muy bien y usted?")
+            EstadoAnimo = hacercomando()
+            if 'bien' in EstadoAnimo:
+                habla('Me da mucho gusto , hay algo en lo que le pueda ayudar?')
+                if 'si' in consulta:
+                    habla('En que le puedo ayudar?')
+                if 'no' in consulta:
+                    habla('Nos vemos pronto!')
+                    break
+            elif 'mal' in EstadoAnimo:
+                habla('Que mal señor, me apena mucho, hay algo en lo que le pueda ayudar?')
+                if 'si' in consulta:
+                    habla('En que le puedo ayudar?')
+                if 'no' in consulta:
+                    habla('Nos vemos pronto!')
+                    break
+            elif 'más o menos' in EstadoAnimo:
+                habla('No entiendo a los humanos, son muy complejos, hay algo en lo que le pueda ayudar?')
+                if 'si' in consulta:
+                    habla('En que le puedo ayudar?')
+                if 'no' in consulta:
+                    habla('Nos vemos pronto!')
+                    break
+            elif 'triste' in EstadoAnimo:
+                habla('Me apena mucho que se sienta así, hay algo en lo que le pueda ayudar?')
+                if 'si' in consulta:
+                    habla('En que le puedo ayudar?')
+                if 'no' in consulta:
+                    habla('Nos vemos pronto!')
+                    break
+            elif 'feliz' in EstadoAnimo:
+                habla('¡Me alegra mucho!, hay algo en lo que le pueda ayudar?')
+                if 'si' in consulta:
+                    habla('En que le puedo ayudar?')
+                if 'no' in consulta:
+                    habla('Nos vemos pronto!')
+                    break
+            elif 'asustado' in EstadoAnimo:
+                habla('Cómase un pan para el susto, hay algo en lo que le pueda ayudar?')
+                if 'si' in consulta:
+                    habla('En que le puedo ayudar?')
+                if 'no' in consulta:
+                    habla('Nos vemos pronto!')
+                    break
+            elif 'enojado' in EstadoAnimo:
+                habla('Tranquilo señor, tómese un tiempo para pensar. Hay algo en lo que le pueda ayudar?')
+                if 'si' in consulta:
+                    habla('En que le puedo ayudar?')
+                if 'no' in consulta:
+                    habla('Nos vemos pronto!')
+                    break
+            elif 'achicopalado' in EstadoAnimo:
+                habla('Lo siento mucho, hay algo en lo que le pueda ayudar?')
+                if 'si' in consulta:
+                    habla('En que le puedo ayudar?')
+                if 'no' in consulta:
+                    habla('Nos vemos pronto!')
+                    break
+                    
         elif 'un chiste' in consulta:
             habla("Había una vez un pollito que se llamaba pegamento, se cayó y se pegó JA JA JA JA JA")
             break
@@ -243,8 +311,17 @@ def Respuestas():
             habla("Listo")
             habla("Ingrese el enlace del video que quiera descargar")
             break
-
-        else: break
+                    
+        else:
+            habla('Lo siento, por el momento este comando no está disponible')
+            habla('Desea intentar de nuevo?')
+            Intento = hacercomando()
+            if 'sí' in Intento:
+                habla('¿En que le puedo ayudar?')
+            elif 'no' in Intento:
+                habla('¡Hasta pronto!')
+                break
 
         
+            
 Respuestas()

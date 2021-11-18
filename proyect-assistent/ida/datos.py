@@ -1,18 +1,17 @@
 from math import inf
+from email.message import EmailMessage
+from subprocess import TimeoutExpired
+from firebase_admin import credentials
+from firebase_admin import db
+from playsound import playsound
 import smtplib
 import speech_recognition as sr
 import pyttsx3
-from email.message import EmailMessage
 import re
 import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import db
 import pyrebase
 
 #pip install pyrebase4
-
-
-
 
 listener = sr.Recognizer()
 Asistente = pyttsx3.init()
@@ -32,7 +31,8 @@ def hacercomando():
         print("Escuchando.......")
         comando.pause_threshold = 1
         comando.energy_threshold = 400
-        audio = comando.listen(source)
+        playsound('D:\\Documentos\\Github\\Proyecto SOFTWARE\\rougue-studios\\resources\\SonidoIDA.mp3')
+        audio = comando.listen(source,timeout=5)
 
         try:
             print("Entendiendo.......")
@@ -41,6 +41,13 @@ def hacercomando():
 
         except Exception as Error:
             return "none"
+        
+        except TimeoutExpired as msg:
+            print(msg)
+        
+        except sr.WaitTimeoutError as msg:
+            print("El tiempo de espera ha terminado")
+            quit()
 
         return consulta.lower()
     

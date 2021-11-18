@@ -1,11 +1,12 @@
 from math import inf
-import smtplib
+from subprocess import TimeoutExpired
 from firebase_admin import db
+from email.message import EmailMessage
+from playsound import playsound
+import smtplib
 import speech_recognition as sr
 import pyttsx3
-from email.message import EmailMessage
 import datos
-
 
 
 
@@ -28,8 +29,8 @@ def hacercomando():
         print("Escuchando.......")
         comando.pause_threshold = 1
         comando.energy_threshold = 400
-        audio = comando.listen(source)
-
+        playsound('D:\\Documentos\\Github\\Proyecto SOFTWARE\\rougue-studios\\resources\\SonidoIDA.mp3')
+        audio = comando.listen(source,timeout=5)
         try:
             print("Entendiendo.......")
             consulta = comando.recognize_google(audio,language='es-mx')
@@ -38,7 +39,7 @@ def hacercomando():
 
         except Exception as Error:
             return "none"
-
+        
         return consulta.lower()
         
 
@@ -59,7 +60,6 @@ def enviar_correo(receptor,asunto,mensaje):
         ref=db.reference('/calls/Emails')
         ref.update({'Enviados':resultado})
         
-
 def obtener_info_emails():
     habla('¿A quien le quieres enviar el correo?')
     nombre = hacercomando()
