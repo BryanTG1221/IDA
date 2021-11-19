@@ -9,10 +9,8 @@ import speech_recognition as sr
 import pyttsx3
 import re
 import firebase_admin
-import pyrebase
 
-#pip install pyrebase4
-
+#<-------------------------------------------Funciones------------------------------------------->
 listener = sr.Recognizer()
 Asistente = pyttsx3.init()
 
@@ -31,7 +29,7 @@ def hacercomando():
         print("Escuchando.......")
         comando.pause_threshold = 1
         comando.energy_threshold = 400
-        playsound('D:\\Documentos\\Github\\Proyecto SOFTWARE\\rougue-studios\\resources\\SonidoIDA.mp3')
+        playsound('C:\\Program Files (x86)\\IDA\\rougue-studios\\resources\\SonidoIDA.mp3')
         audio = comando.listen(source,timeout=5)
 
         try:
@@ -80,8 +78,6 @@ def obtener_datos():
         print(correofull)
         subir_info(nombre,correofull)
     habla('No es un correo valido, vuelva a intentarlo')
-    
-
 
 def subir_info(nombre,correo):
     ref = db.reference('/Correos')
@@ -94,7 +90,6 @@ def subir_info(nombre,correo):
     ref=db.reference('/calls/Emails')
     ref.update({'Agregados':resultado})
     print(resultado)
-    
 
 def obtener_correo(nombre):
     ref =db.reference('/Correos/'+nombre+'/correo')

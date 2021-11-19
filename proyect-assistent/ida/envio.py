@@ -9,16 +9,13 @@ import pyttsx3
 import datos
 
 
-
-listener = sr.Recognizer()
+#<-------------------------------------------Funciones------------------------------------------->
 Asistente = pyttsx3.init()
-
 def habla(audio):
     print(" ")
     Asistente.say(audio)
     print(f": {audio}")
     Asistente.runAndWait()
-
 
 def hacercomando():
     comando = sr.Recognizer()
@@ -29,7 +26,7 @@ def hacercomando():
         print("Escuchando.......")
         comando.pause_threshold = 1
         comando.energy_threshold = 400
-        playsound('D:\\Documentos\\Github\\Proyecto SOFTWARE\\rougue-studios\\resources\\SonidoIDA.mp3')
+        playsound('C:\\Program Files (x86)\\IDA\\rougue-studios\\resources\\SonidoIDA.mp3')
         audio = comando.listen(source,timeout=5)
         try:
             print("Entendiendo.......")
@@ -40,10 +37,8 @@ def hacercomando():
         except Exception as Error:
             return "none"
         
-        return consulta.lower()
-        
+        return consulta.lower()      
 
-        
 def enviar_correo(receptor,asunto,mensaje):
         server = smtplib.SMTP('smtp.gmail.com',587)
         server.starttls()
@@ -58,8 +53,8 @@ def enviar_correo(receptor,asunto,mensaje):
         resultado=ref.get()
         resultado = resultado +1
         ref=db.reference('/calls/Emails')
-        ref.update({'Enviados':resultado})
-        
+        ref.update({'Enviados':resultado})     
+
 def obtener_info_emails():
     habla('¿A quien le quieres enviar el correo?')
     nombre = hacercomando()

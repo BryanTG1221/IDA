@@ -3,11 +3,11 @@ from firebase_admin import db
 import firebase_admin
 import matplotlib.pyplot as plt 
 
-# <------------------------Importación de la base de datos-------------------------->
-cred = credentials.Certificate('D:\\Documentos\\Github\\Proyecto SOFTWARE\\rougue-studios\\proyect-assistent\\ida\\assistent-personal-35dbb-firebase-adminsdk-1sx5y-058487df7f.json')
+#<-----------------------------------------Base de datos----------------------------------------->
+cred = credentials.Certificate('C:\\Program Files (x86)\\IDA\\rougue-studios\\proyect-assistent\ida\\assistent-personal-35dbb-firebase-adminsdk-1sx5y-058487df7f.json')
 firebase_admin.initialize_app(cred,{'databaseURL':'https://assistent-personal-35dbb-default-rtdb.firebaseio.com/'})
 
-# <------------------------Correos Enviados y Agregados----------------------------->
+# <---------------------------------Correos Enviados y Agregados--------------------------------->
 ref=db.reference('/calls/Emails/Agregados') 
 CorreosAgregados = ref.get()
 
@@ -27,7 +27,7 @@ plt.xticks(positions,names)
 
 plt.show()
 
-# <---------------------------Búsquedas en internet---------------------------------->
+# <------------------------------------Búsquedas en internet------------------------------------->
 ref=db.reference('/calls/Facebook/busquedas')
 BusquedaFacebook = ref.get()
 
@@ -46,7 +46,7 @@ plt.bar(positions,scores,width=0.5, color="b")
 plt.xticks(positions,names)
 plt.show()
 
-# <-----------------------------------Oye IDA--------------------------------------->
+# <-----------------------------------------Oye IDA---------------------------------------------->
 ref=db.reference('/calls/IDA/oye') 
 OyeIDA = ref.get()
 

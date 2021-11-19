@@ -18,12 +18,16 @@ import wikipedia
 import pyautogui
 import envio
 import datos
+import animo
 import firebase_admin
 import time
 
-cred = credentials.Certificate('D:\\Documentos\\Github\\Proyecto SOFTWARE\\rougue-studios\\proyect-assistent\\ida\\assistent-personal-35dbb-firebase-adminsdk-1sx5y-058487df7f.json')
+#<-----------------------------------------Base de datos----------------------------------------->
+cred = credentials.Certificate('C:\\Program Files (x86)\\IDA\\rougue-studios\\proyect-assistent\ida\\assistent-personal-35dbb-firebase-adminsdk-1sx5y-058487df7f.json')
 firebase_admin.initialize_app(cred,{'databaseURL':'https://assistent-personal-35dbb-default-rtdb.firebaseio.com/'})
 
+
+#<-------------------------------------------Funciones------------------------------------------->
 Asistente = pyttsx3.init('sapi5')
 voces = Asistente.getProperty('voices') #voices es el nombre de la propiedad, no se puede modificar 
 Asistente.setProperty('voices',voces[0].id)
@@ -35,7 +39,6 @@ def habla(audio):
     print(f": {audio}")
     Asistente.runAndWait()
 
-
 def hacercomando():
     comando = sr.Recognizer()
     with sr.Microphone() as source:
@@ -45,7 +48,7 @@ def hacercomando():
         print("Escuchando.......")
         comando.pause_threshold = 1
         comando.energy_threshold = 400
-        playsound('D:\\Documentos\\Github\\Proyecto SOFTWARE\\rougue-studios\\resources\\SonidoIDA.mp3')
+        playsound('C:\\Program Files (x86)\\IDA\\rougue-studios\\resources\\SonidoIDA.mp3')
         audio = comando.listen(source,timeout=5)
         try:
             
@@ -147,76 +150,31 @@ def Respuestas():
         ref.update({'nuevold':resultado})
     while True:
         consulta = hacercomando()   
-
+#<------------------------------------------Saludos IDA------------------------------------------>
         if 'hola' in consulta:
             habla("Hola , soy Aída")
             habla("Su asistente personal")
             habla("¿Cómo le puedo ayudar?")
-
+#<----------------------------------------Estados de ánimo--------------------------------------->
         elif 'cómo estás' in consulta or 'como estas' in consulta:
-            habla("Yo estoy muy bien y usted?")
-            EstadoAnimo = hacercomando()
-            if 'bien' in EstadoAnimo:
-                habla('Me da mucho gusto , hay algo en lo que le pueda ayudar?')
-                if 'si' in consulta:
-                    habla('En que le puedo ayudar?')
-                if 'no' in consulta:
-                    habla('Nos vemos pronto!')
-                    break
-            elif 'mal' in EstadoAnimo:
-                habla('Que mal señor, me apena mucho, hay algo en lo que le pueda ayudar?')
-                if 'si' in consulta:
-                    habla('En que le puedo ayudar?')
-                if 'no' in consulta:
-                    habla('Nos vemos pronto!')
-                    break
-            elif 'más o menos' in EstadoAnimo:
-                habla('No entiendo a los humanos, son muy complejos, hay algo en lo que le pueda ayudar?')
-                if 'si' in consulta:
-                    habla('En que le puedo ayudar?')
-                if 'no' in consulta:
-                    habla('Nos vemos pronto!')
-                    break
-            elif 'triste' in EstadoAnimo:
-                habla('Me apena mucho que se sienta así, hay algo en lo que le pueda ayudar?')
-                if 'si' in consulta:
-                    habla('En que le puedo ayudar?')
-                if 'no' in consulta:
-                    habla('Nos vemos pronto!')
-                    break
-            elif 'feliz' in EstadoAnimo:
-                habla('¡Me alegra mucho!, hay algo en lo que le pueda ayudar?')
-                if 'si' in consulta:
-                    habla('En que le puedo ayudar?')
-                if 'no' in consulta:
-                    habla('Nos vemos pronto!')
-                    break
-            elif 'asustado' in EstadoAnimo:
-                habla('Cómase un pan para el susto, hay algo en lo que le pueda ayudar?')
-                if 'si' in consulta:
-                    habla('En que le puedo ayudar?')
-                if 'no' in consulta:
-                    habla('Nos vemos pronto!')
-                    break
-            elif 'enojado' in EstadoAnimo:
-                habla('Tranquilo señor, tómese un tiempo para pensar. Hay algo en lo que le pueda ayudar?')
-                if 'si' in consulta:
-                    habla('En que le puedo ayudar?')
-                if 'no' in consulta:
-                    habla('Nos vemos pronto!')
-                    break
-            elif 'achicopalado' in EstadoAnimo:
-                habla('Lo siento mucho, hay algo en lo que le pueda ayudar?')
-                if 'si' in consulta:
-                    habla('En que le puedo ayudar?')
-                if 'no' in consulta:
-                    habla('Nos vemos pronto!')
-                    break
+            animo.Contestaciones()
+            
+        elif 'me siento triste' in consulta or 'estoy triste' in consulta:
+            animo.Triste()
+            
+        elif 'me siento feliz' in consulta or 'estoy alegre' in consulta:
+            animo.Feliz()
+            
+        elif 'me siento enojado' in consulta or 'estoy enojado' in consulta:
+            animo.Enojado()
+            
+        elif 'me siento asustado' in consulta or 'estoy asustado' in consulta:
+            animo.Asustado()
                     
         elif 'un chiste' in consulta:
             habla("Había una vez un pollito que se llamaba pegamento, se cayó y se pegó JA JA JA JA JA")
-            break
-
+            break       
+#<--------------------------------------------Breaks--------------------------------------------->
         elif 'necesitas un descanso' in consulta or 'tómate un descanso' in consulta:
             habla("Ok señor, pero puede hablarme cuando lo necesite")
             break
@@ -228,7 +186,7 @@ def Respuestas():
         elif 'gracias' in consulta:
             habla("De nada, nos vemos pronto")
             break
-
+#<-------------------------------------------Búsquedas------------------------------------------->
         elif 'en youtube' in consulta or 'un video' in consulta or 'el video' in consulta:
             habla("Esto es lo que encontré en youtube")
             consulta = consulta.replace('Busca a en youtube','')
@@ -277,7 +235,7 @@ def Respuestas():
             ref=db.reference('/calls/Youtube')
             ref.update({'busquedas':resultado})
             break
-
+#<------------------------------------------Utilidades------------------------------------------->
         elif 'abre spotify' in consulta:
             AbrirApps()
             break
@@ -285,7 +243,7 @@ def Respuestas():
         elif 'temperatura' in consulta:
             Temperatura()
             break
-
+#<--------------------------------------------Correos-------------------------------------------->
         elif 'enviar correo' in consulta or 'envía un correo' in consulta or 'enviar un correo' in consulta or 'manda un correo' in consulta:
             envio.obtener_info_emails()  
             break
@@ -293,7 +251,7 @@ def Respuestas():
         elif 'agregar correo' in consulta or 'agrega un correo' in consulta or 'agregar un correo' in consulta  or 'agregar contacto' in consulta or 'agrega un contacto' in consulta or 'agregar un contacto' in consulta:
             datos.obtener_datos()
             break
-            
+#<------------------------------------------Traducción------------------------------------------->
         elif 'traduce' in consulta or 'traducir' in consulta or 'traductor' in consulta:
             habla('Desea traducir algo corto o algo largo')
             consulta=hacercomando()
@@ -304,14 +262,14 @@ def Respuestas():
                 webbrowser.open("https://translate.google.com.mx/?hl=es")
                 habla("Listo")
                 break
-
+#<--------------------------------------Descarga de videos--------------------------------------->
         elif 'descargar video' in consulta or 'descarga este video' in consulta or 'descargues un video' in consulta:
             habla('Abriendo página para descargar videos')
             webbrowser.open("https://www.y2mate.com/es55")
             habla("Listo")
             habla("Ingrese el enlace del video que quiera descargar")
             break
-                    
+#<---------------------------------------------Final--------------------------------------------->
         else:
             habla('Lo siento, por el momento este comando no está disponible')
             habla('Desea intentar de nuevo?')
@@ -320,8 +278,5 @@ def Respuestas():
                 habla('¿En que le puedo ayudar?')
             elif 'no' in Intento:
                 habla('¡Hasta pronto!')
-                break
-
-        
-            
+                break          
 Respuestas()
