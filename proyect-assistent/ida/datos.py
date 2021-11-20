@@ -66,9 +66,10 @@ def obtener_datos():
         correofull = correo + '@' + terminacioncorreo + '.com'
         print(correofull)
         subir_info(nombre,correofull)
-    habla('No es una direccion valida')
-    habla('Opciones validas: Gmail , Outlook, Hotmail')
-    terminacioncorreo=hacercomando()
+    else:
+        habla('No es una direccion valida')
+        habla('Opciones validas: Gmail , Outlook, Hotmail')
+        terminacioncorreo=hacercomando()
     if 'gmail' in terminacioncorreo or 'hotmail' in terminacioncorreo or 'outlook' in terminacioncorreo:
         habla('Okay')
         habla('diga el correo antes del arroba')

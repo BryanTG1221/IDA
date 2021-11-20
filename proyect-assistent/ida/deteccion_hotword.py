@@ -14,7 +14,7 @@ ventana= win32console.GetConsoleWindow()
 win32gui.ShowWindow(ventana,0)
 
 #<-----------------------------------------Base de datos----------------------------------------->
-cred = credentials.Certificate('C:\\Program Files (x86)\\IDA\\rougue-studios\\proyect-assistent\ida\\assistent-personal-35dbb-firebase-adminsdk-1sx5y-058487df7f.json')
+cred = credentials.Certificate('C:\\Program Files (x86)\\IDA\\rougue-studios\\proyect-assistent\\ida\\assistent-personal-35dbb-firebase-adminsdk-1sx5y-058487df7f.json')
 firebase_admin.initialize_app(cred,{'databaseURL':'https://assistent-personal-35dbb-default-rtdb.firebaseio.com/'})
 #<-------------------------------------------Funciones------------------------------------------->
 def hacercomando():
