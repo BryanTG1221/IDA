@@ -14,7 +14,6 @@ import speech_recognition as sr
 import webbrowser 
 import pywhatkit
 import os
-import wikipedia
 import pyautogui
 import envio
 import datos
@@ -200,7 +199,8 @@ def Respuestas():
             ref.update({'busquedas':resultado})
             break
             
-        elif 'en google' in consulta:
+        elif 'en google' in consulta or 'qué es' in consulta or 'que pasaría si' in consulta or 'qué significa' in consulta or 'que necesito para' in consulta or 'cuando' in consulta or 'quien' in consulta or 'cómo' in consulta or 'donde' in consulta or 'por qué' in consulta or 'definición' in consulta or 'porque' in consulta:
+
             habla("Esto es lo que encontré en google!")
             consulta = consulta.replace("busca en google","")
             pywhatkit.search(consulta)
@@ -211,6 +211,10 @@ def Respuestas():
             ref=db.reference('/calls/Google')
             ref.update({'busquedas':resultado})
             break
+
+        elif 'ayúdame con' in consulta or 'me podrías ayudar' in consulta or 'ayúdame' in consulta or 'ayudar' in consulta:
+            habla('Claro, dime lo que necesites') 
+
 
         elif 'facebook' in consulta:
             habla('Abriendo facebook')
