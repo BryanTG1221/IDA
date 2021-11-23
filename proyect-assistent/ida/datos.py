@@ -20,6 +20,8 @@ def habla(audio):
     print(f": {audio}")
     Asistente.runAndWait()
 
+
+
 def hacercomando():
     comando = sr.Recognizer()
     with sr.Microphone() as source:
@@ -69,7 +71,7 @@ def obtener_datos():
     else:
         habla('No es una direccion valida')
         habla('Opciones validas: Gmail , Outlook, Hotmail')
-        terminacioncorreo=hacercomando()
+        terminacioncorreo= hacercomando()
     if 'gmail' in terminacioncorreo or 'hotmail' in terminacioncorreo or 'outlook' in terminacioncorreo:
         habla('Okay')
         habla('diga el correo antes del arroba')
@@ -78,7 +80,6 @@ def obtener_datos():
         correofull = correo + '@' + terminacioncorreo + '.com'
         print(correofull)
         subir_info(nombre,correofull)
-    habla('No es un correo valido, vuelva a intentarlo')
 
 def subir_info(nombre,correo):
     ref = db.reference('/Correos')

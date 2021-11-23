@@ -9,6 +9,7 @@ import win32console
 import win32gui
 import sys
 import firebase_admin
+from playsound import playsound
 #pip install PyQt5  
 ventana= win32console.GetConsoleWindow()
 win32gui.ShowWindow(ventana,0)
@@ -38,20 +39,37 @@ def hacercomando():
 
         return consulta.lower() 
 #<--------------------------------------------OYE IDA-------------------------------------------->
+i=0
 while True:
-    
-    consulta = hacercomando()
-    if 'oye' in consulta:
-        os.startfile('C:\\Program Files (x86)\\IDA\\rougue-studios\\proyect-assistent\\ida\\ida.py')
-        ref=db.reference('/calls/IDA/oye')
-        resultado=ref.get()
-        resultado=resultado+1
-        ref=db.reference('/calls/IDA')
-        ref.update({'oye':resultado})
-    elif 'basta' in consulta:
-        break
+    if(i!=1):
+        i+=1
+        playsound('C:\\Program Files (x86)\\IDA\\rougue-studios\\resources\\SonidoIDA.mp3')
+        consulta = hacercomando()
+        if 'oye' in consulta:
+            os.startfile('C:\\Program Files (x86)\\IDA\\rougue-studios\\proyect-assistent\\ida\\ida.py')
+            ref=db.reference('/calls/IDA/oye')
+            resultado=ref.get()
+            resultado=resultado+1
+            ref=db.reference('/calls/IDA')
+            ref.update({'oye':resultado})
+        elif 'basta' in consulta:
+            break
+        else:
+            print("Falsa alarma.......")
     else:
-        print("Falsa alarma.......")
+        consulta = hacercomando()
+        if 'oye' in consulta:
+            os.startfile('C:\\Program Files (x86)\\IDA\\rougue-studios\\proyect-assistent\\ida\\ida.py')
+            ref=db.reference('/calls/IDA/oye')
+            resultado=ref.get()
+            resultado=resultado+1
+            ref=db.reference('/calls/IDA')
+            ref.update({'oye':resultado})
+        elif 'basta' in consulta:
+            break
+        else:
+            print("Falsa alarma.......")
+
 
 
     

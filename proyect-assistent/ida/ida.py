@@ -17,7 +17,6 @@ import os
 import pyautogui
 import envio
 import datos
-import animo
 import firebase_admin
 import time
 
@@ -155,20 +154,74 @@ def Respuestas():
             habla("Su asistente personal")
             habla("¿Cómo le puedo ayudar?")
 #<----------------------------------------Estados de ánimo--------------------------------------->
-        elif 'cómo estás' in consulta or 'como estas' in consulta:
-            animo.Contestaciones()
+        # elif 'cómo estás' in consulta or 'como estas' in consulta:
+        #     habla("Yo estoy muy bien y usted?")
+        #     consulta = hacercomando()
+        #     if 'bien' in consulta:
+        #         habla('Me da mucho gusto , hay algo en lo que le pueda ayudar?')
+        #         if 'no' in consulta:
+        #             habla('Nos vemos pronto!')
+        #             exit()
+        # elif 'mal' in consulta:
+        #     habla('Que mal señor, me apena mucho, hay algo en lo que le pueda ayudar?')
+        #     if 'no' in consulta:
+        #         habla('Nos vemos pronto!')
+        #         exit()
+        # elif 'más o menos' in consulta:
+        #     habla('No entiendo a los humanos, son muy complejos, hay algo en lo que le pueda ayudar?')
+        #     if 'no' in consulta:
+        #         habla('Nos vemos pronto!')
+        #         exit()
+        # elif 'triste' in consulta:
+        #     habla('Me apena mucho que se sienta así, hay algo en lo que le pueda ayudar?')
+        #     if 'no' in consulta:
+        #         habla('Nos vemos pronto!')
+        #         exit()
+        # elif 'feliz' in consulta:
+        #     habla('¡Me alegra mucho!, hay algo en lo que le pueda ayudar?')
+
+        #     if 'no' in consulta:
+        #         habla('Nos vemos pronto!')
+        #         exit()
+        # elif 'asustado' in consulta:
+        #     habla('Cómase un pan para el susto, hay algo en lo que le pueda ayudar?')
+        #     if 'no' in consulta:
+        #         habla('Nos vemos pronto!')
+        #         exit()
             
-        elif 'me siento triste' in consulta or 'estoy triste' in consulta:
-            animo.Triste()
+        # elif 'achicopalado' in consulta:
+        #     habla('Lo siento mucho, hay algo en lo que le pueda ayudar?')
+        #     if 'no' in consulta:
+        #         habla('Nos vemos pronto!')
+        #         exit()
             
-        elif 'me siento feliz' in consulta or 'estoy alegre' in consulta:
-            animo.Feliz()
+        # elif 'me siento triste' in consulta or 'estoy triste' in consulta:
+        #     habla('Me apena mucho que se sienta así, hay algo en lo que le pueda ayudar?')
+        #     consulta = hacercomando()   
+        # if 'no' in consulta:
+        #         habla('Nos vemos pronto!')
+        #         exit()
             
-        elif 'me siento enojado' in consulta or 'estoy enojado' in consulta:
-            animo.Enojado()
+        # elif 'me siento feliz' in consulta or 'estoy alegre' in consulta:
+        #     consulta = hacercomando()   
+        # habla('Me alegra mucho, hay algo en lo que le pueda ayudar?')
+        # if 'no' in consulta:
+        #         habla('Nos vemos pronto!')
+        #         exit()
             
-        elif 'me siento asustado' in consulta or 'estoy asustado' in consulta:
-            animo.Asustado()
+        # elif 'me siento enojado' in consulta or 'estoy enojado' in consulta:
+        #     habla('Tranquilo señor, tómese un tiempo para pensar. Hay algo en lo que le pueda ayudar?')
+        #     consulta=hacercomando()
+        #     if 'no' in consulta:
+        #         habla('Nos vemos pronto!')
+        #         exit()
+            
+        # elif 'me siento asustado' in consulta or 'estoy asustado' in consulta:
+        #     consulta = hacercomando()   
+        #     habla('Échesé un pan pal susto, hay algo en lo que le pueda ayudar?')
+        #     if 'no' in consulta:
+        #         habla('Nos vemos pronto!')
+        #         exit()
                     
         elif 'un chiste' in consulta:
             habla("Había una vez un pollito que se llamaba pegamento, se cayó y se pegó JA JA JA JA JA")
@@ -182,7 +235,7 @@ def Respuestas():
             habla("Adiós")
             break
 
-        elif 'gracias' in consulta:
+        elif 'no gracias' in consulta or 'gracias' in consulta:
             habla("De nada, nos vemos pronto")
             break
 #<-------------------------------------------Búsquedas------------------------------------------->
@@ -199,7 +252,7 @@ def Respuestas():
             ref.update({'busquedas':resultado})
             break
             
-        elif 'en google' in consulta or 'qué es' in consulta or 'que pasaría si' in consulta or 'qué significa' in consulta or 'que necesito para' in consulta or 'cuando' in consulta or 'quien' in consulta or 'cómo' in consulta or 'donde' in consulta or 'por qué' in consulta or 'definición' in consulta or 'porque' in consulta:
+        elif 'en google' in consulta or 'qué es' in consulta or 'que pasaría si' in consulta or 'qué significa' in consulta or 'que necesito para' in consulta or 'cuando' in consulta or 'quien' in consulta or 'cómo' in consulta or 'donde' in consulta or 'por qué' in consulta or 'definición' in consulta or 'porque' in consulta or 'cuál' in consulta:
 
             habla("Esto es lo que encontré en google!")
             consulta = consulta.replace("busca en google","")
