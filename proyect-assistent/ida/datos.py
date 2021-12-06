@@ -72,14 +72,7 @@ def obtener_datos():
         habla('No es una direccion valida')
         habla('Opciones validas: Gmail , Outlook, Hotmail')
         terminacioncorreo= hacercomando()
-    if 'gmail' in terminacioncorreo or 'hotmail' in terminacioncorreo or 'outlook' in terminacioncorreo:
-        habla('Okay')
-        habla('diga el correo antes del arroba')
-        correo=hacercomando()
-        correo = correo.replace(' ','')
-        correofull = correo + '@' + terminacioncorreo + '.com'
-        print(correofull)
-        subir_info(nombre,correofull)
+
 
 def subir_info(nombre,correo):
     ref = db.reference('/Correos')

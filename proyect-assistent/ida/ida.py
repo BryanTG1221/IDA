@@ -252,7 +252,7 @@ def Respuestas():
             ref.update({'busquedas':resultado})
             break
             
-        elif 'en google' in consulta or 'qué es' in consulta or 'que pasaría si' in consulta or 'qué significa' in consulta or 'que necesito para' in consulta or 'cuando' in consulta or 'quien' in consulta or 'cómo' in consulta or 'donde' in consulta or 'por qué' in consulta or 'definición' in consulta or 'porque' in consulta or 'cuál' in consulta:
+        elif 'en google' in consulta or 'qué es' in consulta or 'que pasaría si' in consulta or 'qué significa' in consulta or 'que necesito para' in consulta or 'cuando' in consulta or 'quien' in consulta or 'cómo' in consulta or 'donde' in consulta or 'por qué' in consulta or 'definición' in consulta or 'porque' in consulta or 'cuál' in consulta or 'quién' in consulta or 'busca' in consulta:
 
             habla("Esto es lo que encontré en google!")
             consulta = consulta.replace("busca en google","")
@@ -293,9 +293,9 @@ def Respuestas():
             ref.update({'busquedas':resultado})
             break
 #<------------------------------------------Utilidades------------------------------------------->
-        elif 'abre spotify' in consulta:
-            AbrirApps()
-            break
+        # elif 'abre spotify' in consulta:
+        #     AbrirApps()
+        #     break
 
         elif 'temperatura' in consulta:
             Temperatura()
@@ -326,14 +326,11 @@ def Respuestas():
             habla("Listo")
             habla("Ingrese el enlace del video que quiera descargar")
             break
+
+        elif 'cancela orden' in consulta or 'cancelar orden' in consulta:
+            habla('Orden cancelada')
 #<---------------------------------------------Final--------------------------------------------->
         else:
             habla('Lo siento, por el momento este comando no está disponible')
             habla('Desea intentar de nuevo?')
-            Intento = hacercomando()
-            if 'sí' in Intento:
-                habla('¿En que le puedo ayudar?')
-            elif 'no' in Intento:
-                habla('¡Hasta pronto!')
-                break          
 Respuestas()
