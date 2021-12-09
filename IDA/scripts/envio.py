@@ -6,9 +6,10 @@ from playsound import playsound
 import smtplib
 import speech_recognition as sr
 import pyttsx3
-import datos
+import DatosCorreo
 
-
+def Sonidito():
+    playsound('C:\\Program Files (x86)\\IDA\\rougue-studios\\IDA\\resources\\SonidoIDA.mp3')
 #<-------------------------------------------Funciones------------------------------------------->
 Asistente = pyttsx3.init()
 def habla(audio):
@@ -61,9 +62,9 @@ def obtener_info_emails():
     if 'a' in nombre:
         habla('Diga solo el nombre a quien quiere enviar el correo porfavor')
         nombre=hacercomando()
-        receptoremail = datos.obtener_correo(nombre)
+        receptoremail = DatosCorreo.obtener_correo(nombre)
         
-    receptoremail = datos.obtener_correo(nombre)
+    receptoremail = DatosCorreo.obtener_correo(nombre)
     print(receptoremail)
     habla('¿Cual es el asunto de su email?')
     asunto = hacercomando()

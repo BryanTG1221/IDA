@@ -1,0 +1,11 @@
+C:\Users\Bryant\source\repos\IDAInterface\IDAInterface\bin\Debug\IDAInterface.exe.config
+C:\Users\Bryant\source\repos\IDAInterface\IDAInterface\bin\Debug\IDAInterface.exe
+C:\Users\Bryant\source\repos\IDAInterface\IDAInterface\bin\Debug\IDAInterface.pdb
+C:\Users\Bryant\source\repos\IDAInterface\IDAInterface\obj\Debug\IDAInterface.csproj.AssemblyReference.cache
+C:\Users\Bryant\source\repos\IDAInterface\IDAInterface\obj\Debug\IDAInterface.csproj.SuggestedBindingRedirects.cache
+C:\Users\Bryant\source\repos\IDAInterface\IDAInterface\obj\Debug\IDAInterface.Form1.resources
+C:\Users\Bryant\source\repos\IDAInterface\IDAInterface\obj\Debug\IDAInterface.Properties.Resources.resources
+C:\Users\Bryant\source\repos\IDAInterface\IDAInterface\obj\Debug\IDAInterface.csproj.GenerateResource.cache
+C:\Users\Bryant\source\repos\IDAInterface\IDAInterface\obj\Debug\IDAInterface.csproj.CoreCompileInputs.cache
+C:\Users\Bryant\source\repos\IDAInterface\IDAInterface\obj\Debug\IDAInterface.exe
+C:\Users\Bryant\source\repos\IDAInterface\IDAInterface\obj\Debug\IDAInterface.pdb
