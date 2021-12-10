@@ -255,16 +255,17 @@ def Respuestas():
 
         elif 'sube el volumen' in consulta:
             pyautogui.press("volumeup")
+            pyautogui.press("volumeup")
             
             
-        elif 'baja diez el volumen' in consulta:
+        elif 'baja diez el volumen' in consulta or 'baja 10 el volumen' in consulta:
             pyautogui.press("volumedown")
             pyautogui.press("volumedown")
             pyautogui.press("volumedown")
             pyautogui.press("volumedown")
             pyautogui.press("volumedown")
 
-        elif 'sube diez el volumen' in consulta:
+        elif 'sube diez el volumen' in consulta or 'sube 10 el volumen' in consulta:
             pyautogui.press("volumeup")
             pyautogui.press("volumeup")
             pyautogui.press("volumeup")
@@ -272,12 +273,10 @@ def Respuestas():
             pyautogui.press("volumeup")
             
             
-        elif 'baja diez el volumen' in consulta:
+        elif 'baja el volumen' in consulta:
             pyautogui.press("volumedown")
             pyautogui.press("volumedown")
-            pyautogui.press("volumedown")
-            pyautogui.press("volumedown")
-            pyautogui.press("volumedown")
+
 
         elif 'silencia el audio' in consulta or 'mutea el audio' in consulta:
             pyautogui.press("volumemute")
